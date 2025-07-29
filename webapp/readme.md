@@ -4,9 +4,9 @@
 
 ```console
 
-docker build -t textclassifv .
+docker build -t textclassif .
 
-docker run -p 5000:5000 textclassiv
+docker run -p 5000:5000 textclassif
 
 ```
 
