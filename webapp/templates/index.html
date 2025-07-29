@@ -1,0 +1,39 @@
+<!doctype html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <title>PDF Classifier</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                <h5 class="pt-1">PDF Classifier</h5>
+            </a>
+        </div>
+    </nav>
+
+    <div class="mb-3 position-absolute top-50 start-50">
+        <div class="width: 60%;">
+            <label for="formFile" class="form-label">Выберете .pdf файл</label>
+            <input class="form-control" type="file" id="formFile">
+        </div>
+    </div>
+
+    <footer class="bg-primary text-white fixed-bottom"><div style="height: 50px; "></div></footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script>
+
+        $("#formFile").on("change", function() {
+            var file = $(this).prop('files')[0];
+            var request = new XMLHttpRequest();
+            var formData = new FormData();
+
+            formData.append('file', file);
+            request.open('POST', '/predict');
+            request.send(formData);
+        });
+    </script>
+
+</body>
