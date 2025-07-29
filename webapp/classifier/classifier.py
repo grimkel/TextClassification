@@ -2,7 +2,7 @@ import pickle
 
 import numpy as np
 
-from util.preprocess import preprocess, target_names
+from util.preprocess import preprocess, target_names, target_names_ru
 
 class SVCmodel:
 
@@ -34,6 +34,6 @@ class SVCmodel:
         # Выделение числа - ID класса из массива np.array -> int
         clsId = np.squeeze(out)
         # Получить название класса
-        cls = target_names[clsId]
+        cls = target_names_ru[clsId]
 
         return cls
