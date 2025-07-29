@@ -12,10 +12,21 @@
         </div>
     </nav>
 
-    <div class="mb-3 position-absolute top-50 start-50">
-        <div class="width: 60%;">
-            <label for="formFile" class="form-label">Выберете .pdf файл</label>
-            <input class="form-control" type="file" id="formFile">
+    <div class="container w-25" style="margin-top:200px">
+        <div class="row g-5">
+            <div class="col-xs-1 center-block text-center">
+                <h1 id="docClass">Здесь будет отображен класс документа</h1>
+            </div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1">
+                <label for="formFile" class="form-label">Выберете .pdf файл</label>
+                <input class="form-control" type="file" id="formFile">
+            </div> 
+            <div class="col-xs-1"></div> 
+            <div class="col-xs-1 center-block text-center" >
+                <button class="btn btn-primary" type="submit" id="startButton">Классифицировать документ</button>
+            </div>
         </div>
     </div>
 
@@ -24,15 +35,29 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script>
+        <!-- Фиксирование поля ввода файла -->
+        var fileInput = $("#formFile")
+        <!-- Поля для вывода -->
+        var classTitle = $("#docClass")
 
-        $("#formFile").on("change", function() {
-            var file = $(this).prop('files')[0];
+        <!-- Начать POST запрос при нажати на кнопку -->
+        $("#startButton").on('click', function() {
+            <!-- Получение файла -->
+            var file = fileInput.prop('files')[0];
             var request = new XMLHttpRequest();
             var formData = new FormData();
 
+            <!-- Формирование и отправка запроса -->
             formData.append('file', file);
             request.open('POST', '/predict');
             request.send(formData);
+
+            <!-- Ожидание ответа на запрос -->
+            request.onreadystatechange = function() { 
+                <!-- Изменение поля класса при успешном запросе -->
+                if (request.readyState == 4 && request.status == 200)
+                    classTitle.text(request.responseText);
+            }
         });
     </script>
 
